@@ -46,7 +46,7 @@
        "image": project.coverImageUrl ? new URL(getFileUrl(project, project.coverImage), pb.baseUrl).toString() : undefined,
        "author": { // Assuming you add author info to siteSettings or project
          "@type": "Person",
-         "name": data.siteSettings?.siteTitle.split('-')[0].trim() || "Your Name"
+         "name": data.siteSettings?.siteTitle.split('-')[0].trim() || "Kipeles Kemboi Denis"
        },
        "datePublished": project.created, // Use created or a dedicated publishedDate field
        "dateModified": project.updated,
