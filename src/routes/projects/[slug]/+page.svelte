@@ -59,72 +59,91 @@
 </svelte:head>
 
 {#if project}
-    <article class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <h1 class="text-3xl font-bold mb-4 text-indigo-700 dark:text-indigo-300">{project.title}</h1>
+	<article class="bg-secondary p-6 rounded-lg shadow-md text-text">
+		<h1 class="text-3xl font-bold mb-4 text-accent">{project.title}</h1>
 
-        {#if project.coverImageUrl}
-            <img src={project.coverImageUrl} alt="Cover for {project.title}" class="w-full max-w-3xl mx-auto h-auto object-contain rounded-md mb-6" />
-        {/if}
+		{#if project.coverImageUrl}
+			<img
+				src={project.coverImageUrl}
+				alt="Cover for {project.title}"
+				class="w-full max-w-3xl mx-auto h-auto object-contain rounded-md mb-6"
+			/>
+		{/if}
 
-        {#if project.projectUrl || project.repoUrl}
-            <div class="flex flex-wrap gap-4 mb-6">
-                {#if project.projectUrl}
-                    <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm font-medium transition-colors">
-                        View Live Project <ExternalLink class="w-4 h-4 ml-2"/>
-                    </a>
-                {/if}
-                {#if project.repoUrl}
-                     <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md text-sm font-medium transition-colors">
-                        View Code <ExternalLink class="w-4 h-4 ml-2"/> <!-- Replace with GitHub/GitLab icon -->
-                    </a>
-                {/if}
-            </div>
-        {/if}
+		{#if project.projectUrl || project.repoUrl}
+			<div class="flex flex-wrap gap-4 mb-6">
+				{#if project.projectUrl}
+					<a
+						href={project.projectUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-flex items-center px-4 py-2 bg-accent hover:bg-accent/90 text-white rounded-md text-sm font-medium transition-colors"
+					>
+						View Live Project <ExternalLink class="w-4 h-4 ml-2" />
+					</a>
+				{/if}
+				{#if project.repoUrl}
+					<a
+						href={project.repoUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-flex items-center px-4 py-2 bg-primary hover:bg-primary/80 text-text rounded-md text-sm font-medium transition-colors"
+					>
+						View Code <ExternalLink class="w-4 h-4 ml-2" />
+						<!-- Replace with GitHub/GitLab icon -->
+					</a>
+				{/if}
+			</div>
+		{/if}
 
-         {#if project.technologies}
-            <div class="mb-6">
-                <h3 class="text-lg font-semibold mb-2">Technologies Used:</h3>
-                 <div class="flex flex-wrap gap-2">
-                    {#each project.technologies.split(',').map(t => t.trim()) as tech}
-                        {#if tech}
-                            <span class="text-sm bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full">
-                                {tech}
-                            </span>
-                        {/if}
-                    {/each}
-                </div>
-            </div>
-         {/if}
+		{#if project.technologies}
+			<div class="mb-6">
+				<h3 class="text-lg font-semibold mb-2">Technologies Used:</h3>
+				<div class="flex flex-wrap gap-2">
+					{#each project.technologies.split(',').map((t) => t.trim()) as tech}
+						{#if tech}
+							<span class="text-sm bg-primary text-accent px-3 py-1 rounded-full">
+								{tech}
+							</span>
+						{/if}
+					{/each}
+				</div>
+			</div>
+		{/if}
 
-        <h2 class="text-2xl font-semibold mb-3 mt-6 border-t pt-4 border-gray-300 dark:border-gray-700">Description</h2>
-         {#if project.description}
-            <div class="prose dark:prose-invert max-w-none">
-                 {@html project.description}
-            </div>
-         {:else}
-            <p>No detailed description available.</p>
-         {/if}
+		<h2 class="text-2xl font-semibold mb-3 mt-6 border-t pt-4 border-primary">Description</h2>
+		{#if project.description}
+			<div class="prose dark:prose-invert max-w-none text-text">
+				{@html project.description}
+			</div>
+		{:else}
+			<p>No detailed description available.</p>
+		{/if}
 
-         {#if project.galleryUrls && project.galleryUrls.length > 0}
-            <h2 class="text-2xl font-semibold mb-4 mt-8 border-t pt-4 border-gray-300 dark:border-gray-700">Gallery</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {#each project.galleryUrls as imageUrl (imageUrl)}
-                    <a href={imageUrl} target="_blank" rel="noopener noreferrer" class="block">
-                        <img src={imageUrl} alt="Project gallery image" class="w-full h-auto object-cover rounded-md shadow-sm hover:shadow-md transition-shadow" loading="lazy" />
-                    </a>
-                    <!-- <a href={imageUrl} target="_blank" rel="noopener noreferrer" class="block">
+		{#if project.galleryUrls && project.galleryUrls.length > 0}
+			<h2 class="text-2xl font-semibold mb-4 mt-8 border-t pt-4 border-primary">Gallery</h2>
+			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+				{#each project.galleryUrls as imageUrl (imageUrl)}
+					<a href={imageUrl} target="_blank" rel="noopener noreferrer" class="block">
+						<img
+							src={imageUrl}
+							alt="Project gallery image"
+							class="w-full h-auto object-cover rounded-md shadow-sm hover:shadow-md transition-shadow"
+							loading="lazy"
+						/>
+					</a>
+					<!-- <a href={imageUrl} target="_blank" rel="noopener noreferrer" class="block">
                         <img src={imageUrl} alt="Project gallery image" class="w-full h-auto object-cover rounded-md shadow-sm hover:shadow-md transition-shadow" loading="lazy"/>
                     </a> -->
-                {/each}
-            </div>
-         {/if}
-
-    </article>
+				{/each}
+			</div>
+		{/if}
+	</article>
 {:else}
-     <!-- This part might not be reached if error handling in load function works correctly -->
-    <p class="text-center text-red-500 mt-10">Project data could not be loaded.</p>
+	<!-- This part might not be reached if error handling in load function works correctly -->
+	<p class="text-center text-red-500 mt-10">Project data could not be loaded.</p>
 {/if}
 
 <div class="mt-8">
-    <a href="/projects" class="text-indigo-600 dark:text-indigo-400 hover:underline">← Back to Projects</a>
+	<a href="/projects" class="text-accent hover:underline">← Back to Projects</a>
 </div>
