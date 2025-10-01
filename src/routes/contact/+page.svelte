@@ -32,7 +32,7 @@
 <div class="bg-secondary p-6 rounded-lg shadow-md max-w-xl mx-auto text-text">
 	{#if form?.success}
 		<div
-			class="mb-4 p-3 bg-green-100 dark:bg-green-900 border border-green-300 dark:border-green-700 text-green-800 dark:text-green-200 rounded"
+			class="mb-4 p-3 bg-green-500/20 border border-green-500/50 text-green-700 dark:text-green-300 rounded"
 		>
 			{form.message}
 		</div>
@@ -40,7 +40,7 @@
 
 	{#if form?.error && !form?.success}
 		<div
-			class="mb-4 p-3 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 text-red-800 dark:text-red-200 rounded"
+			class="mb-4 p-3 bg-red-500/20 border border-red-500/50 text-red-700 dark:text-red-300 rounded"
 		>
 			{form.error}
 		</div>

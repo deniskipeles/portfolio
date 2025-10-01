@@ -36,7 +36,7 @@
 </section>
 
 <section class="mt-10 bg-secondary p-6 rounded-lg shadow-md">
-	<h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-gray-300 dark:border-gray-700">
+	<h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">
 		About Me
 	</h2>
 	{#if settings?.aboutMe}
