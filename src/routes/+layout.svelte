@@ -4,8 +4,11 @@
 	import type { LayoutData } from './$types';
 	import { page } from '$app/stores'; // To get current path for active links
 	import { fade } from 'svelte/transition';
+	import { Menu, X } from 'lucide-svelte';
 
 	export let data: LayoutData;
+
+	let isMenuOpen = false;
 
 	$: siteTitle = data.siteSettings?.siteTitle || 'Portfolio';
 	$: socialLinks = data.siteSettings?.socialLinks || {};
@@ -16,6 +19,10 @@
 		{ href: '/contact', label: 'Contact' }
 		// Add more links as needed (e.g., Contact)
 	];
+
+	function toggleMenu() {
+		isMenuOpen = !isMenuOpen;
+	}
 </script>
 
 <div class="flex flex-col min-h-screen bg-primary text-text">
@@ -23,12 +30,44 @@
 		<nav class="container mx-auto px-4 py-3 flex justify-between items-center">
 			<a href="/" class="text-xl font-bold text-accent">{siteTitle}</a>
 			<div class="flex items-center space-x-4">
-				<ul class="hidden md:flex space-x-4">
+				<div class="hidden md:flex items-center space-x-4">
+					<ul class="flex space-x-4">
+						{#each navLinks as link}
+							<li>
+								<a
+									href={link.href}
+									class="hover:text-accent transition-colors"
+									aria-current={$page.url.pathname === link.href ? 'page' : undefined}
+									class:text-accent={$page.url.pathname === link.href}
+								>
+									{link.label}
+								</a>
+							</li>
+						{/each}
+					</ul>
+					<ThemeToggle />
+				</div>
+				<div class="md:hidden flex items-center">
+					<ThemeToggle />
+					<button on:click={toggleMenu} class="p-2" aria-label="Toggle menu">
+						{#if isMenuOpen}
+							<X class="h-6 w-6" />
+						{:else}
+							<Menu class="h-6 w-6" />
+						{/if}
+					</button>
+				</div>
+			</div>
+		</nav>
+		{#if isMenuOpen}
+			<div class="md:hidden bg-secondary">
+				<ul class="flex flex-col items-center space-y-4 py-4">
 					{#each navLinks as link}
 						<li>
 							<a
 								href={link.href}
 								class="hover:text-accent transition-colors"
+								on:click={() => (isMenuOpen = false)}
 								aria-current={$page.url.pathname === link.href ? 'page' : undefined}
 								class:text-accent={$page.url.pathname === link.href}
 							>
@@ -37,9 +76,8 @@
 						</li>
 					{/each}
 				</ul>
-				<ThemeToggle />
 			</div>
-		</nav>
+		{/if}
 	</header>
   
 	<main class="flex-grow container mx-auto px-4 py-8">
