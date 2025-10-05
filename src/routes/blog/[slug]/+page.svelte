@@ -22,40 +22,43 @@
 </svelte:head>
 
 {#if post}
-    <article class="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-lg shadow-md max-w-3xl mx-auto">
-        <h1 class="text-3xl md:text-4xl font-bold mb-3 text-indigo-700 dark:text-indigo-300">{post.title}</h1>
-         <p class="text-md text-gray-500 dark:text-gray-400 mb-6">{displayDate}</p>
+	<article class="bg-secondary p-6 md:p-8 rounded-lg shadow-md max-w-3xl mx-auto">
+		<h1 class="text-3xl md:text-4xl font-bold mb-3 text-accent">{post.title}</h1>
+		<p class="text-md text-text/80 mb-6">{displayDate}</p>
 
-        {#if post.coverImageUrl}
-            <img src={post.coverImageUrl} alt="Cover for {post.title}" class="w-full h-auto object-contain rounded-md mb-8 shadow-sm" />
-        {/if}
+		{#if post.coverImageUrl}
+			<img
+				src={post.coverImageUrl}
+				alt="Cover for {post.title}"
+				class="w-full h-auto object-contain rounded-md mb-8 shadow-sm"
+			/>
+		{/if}
 
-         {#if post.tags}
-            <div class="flex flex-wrap gap-2 mb-6">
-                {#each post.tags.split(',').map(t => t.trim()) as tag}
-                    {#if tag}
-                        <span class="text-sm bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 px-3 py-1 rounded-full">
-                            {tag}
-                        </span>
-                    {/if}
-                {/each}
-            </div>
-         {/if}
+		{#if post.tags}
+			<div class="flex flex-wrap gap-2 mb-6">
+				{#each post.tags.split(',').map((t) => t.trim()) as tag}
+					{#if tag}
+						<span class="text-sm bg-primary text-accent px-3 py-1 rounded-full">
+							{tag}
+						</span>
+					{/if}
+				{/each}
+			</div>
+		{/if}
 
-        {#if post.content}
-            <div class="prose dark:prose-invert max-w-none prose-indigo dark:prose-invert lg:prose-lg">
-                 {@html post.content}
-            </div>
-         {:else}
-            <p>Post content is missing.</p>
-         {/if}
-
-    </article>
+		{#if post.content}
+			<div class="prose dark:prose-invert max-w-none prose-lg text-text">
+				{@html post.content}
+			</div>
+		{:else}
+			<p class="text-text">Post content is missing.</p>
+		{/if}
+	</article>
 {:else}
-     <!-- Should be handled by error boundary from load function -->
-    <p class="text-center text-red-500 mt-10">Could not load blog post.</p>
+	<!-- Should be handled by error boundary from load function -->
+	<p class="text-center text-red-500 mt-10">Could not load blog post.</p>
 {/if}
 
 <div class="mt-8 text-center">
-    <a href="/blog" class="text-indigo-600 dark:text-indigo-400 hover:underline">← Back to Blog List</a>
+	<a href="/blog" class="text-accent hover:underline">← Back to Blog List</a>
 </div>
